@@ -35,6 +35,9 @@ What technique use to scritp the structures out to the files?
 Allow user to modify aslo filesystem copy of the stuctures? And how to sync them?
 	Yes, allow. But notify user about local modifications and propose upload to he server.
 
+It would also be nice to compare DB and FS versions of the objects/scripts against some 'base' version, but this would be quite difficult. Especially it would be hard to make it in a clear and consistent way.
+=> So Scriptmat will just diff FS and DB versions (and compare dates) and synchronize this two version; SQL scriptman is rather synchronization manager.
+
 
 Design
 ------
