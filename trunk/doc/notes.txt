@@ -1,0 +1,88 @@
+SQL ScriptMan(ager)
+===================
+
+
+Goal
+----
+
+Enable usable version control of structures of a SQL Server database. The intent is to use third party tool such as subversion, and to support MS SQL Server 2000 and perhaps future versions.
+The most important structure parts are obviously stored procedures. We also consider tabels, views and user functions.
+I would call a specialized tool (plug-in/standalone) with direct subversion support "SQLSubscript".
+
+Secodary goal is to provide at least simplified version with as little effort as possible.
+
+
+Project goal on BerliOS Developer
+---------------------------------
+
+The main goal of this project is to provide software that enables practical version control of structures of a SQL Server database.
+The intent is to use third party tool such as subversion for versioning. The planned support includes MS SQL Server 2000 and perhaps future versions.
+The most important structure parts to version are obviously stored procedures; tables, views and user functions are considered as well.
+This software may or may not directly support subversion, the primary goal is to enable SQL structure versioning by arbitrary file versioning tool.
+
+
+Discussion
+----------
+
+It is obvious that the only practical way is to bring the sturctures down to the "ground" (filesystem).
+
+Questions:
+What technique use to scritp the structures out to the files?
+1) DMO of SQL-DMF (Distributed Management Framework)
+2) system procedure sp_helptext
+	It does not support tables, just "computed columns".
+
+Allow user to modify aslo filesystem copy of the stuctures? And how to sync them?
+	Yes, allow. But notify user about local modifications and propose upload to he server.
+
+
+Design
+------
+
+User Interface (UI)
+- - - - - - - - - - 
+
+Display tree of Projects, Databases and DB objects:
+	
+	Project
+		DB			-- shows all DB objects
+			Tables		-- shows only tables
+			SPs
+			...
+
+Internal structures
+- - - - - - - - - -
+
+Database
+	- workdir (fs path)
+	- connection (server, DB, User, pwd)
+	- both properties should support switch (branches:Dev/UAT/LiVE)
+
+
+Notes
+- - -
+
+Make connection in separate thread.
+
+Connections are shared implicitly in the background.
+
+
+Iterative development
+- - - - - - - - - - -
+
+1) first stage
+one database, has its connection and its work path
+
+2) second stage
+more databases
+
+3) third stage
+each database supports switch (both workdir and connection)
+
+4) fourth stage
+databases are organized to projects
+
+current state:
+heading for the first stage
+
+			

@@ -1,0 +1,7 @@
+
+Testing server config
+=====================
+
+ROCKET\........040DV
+sa
+N****

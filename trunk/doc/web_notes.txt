@@ -1,0 +1,51 @@
+http://blogs.msdn.com/korbyp/archive/2003/07/03/54057.aspx
+
+Part II - Versioning SQL Server Stored Procedures and Other db Objects in VSS
+
+Step 1: Since I can only add files to a VSS database, the first step is to figure out how to [programmatically] transform my SQL Server database objects (stored procedures, UDFs, table schema, etc) into text files.  One idea is to write a C# class that connects to a database and use isql.exe for this task.  Can I do it with one line of code?  AHA!  I can! 
+
+isql -S servername -U sqluserid -P sqluserpassword -d databasename -q "exec sp_helptext databaseobjectname" > drive letter:\DBO Text Files\ databaseobjectname.txt
+
+sp_helptext, what a lovely, lovely name.
+
+Of course, in Visual Studio .NET, I can do the virtually the same thing with a click of the button.  In the Server Explorer window, you can simply select a database object and click 'Generate Create Scripts'. 
+
+IMPORTANT: When generating individual script files of a SQL Server dbo for addition to a VSS db, elect to save the file in Windows Text (ANSI) format rather than the default Unicode enconding.  Doing so will allow you to Diff versions of the file.  Currently, VSS is unable to diff unicode files.
+
+-------------------------------------------------------------------
+
+
+http://weblogs.asp.net/fmarguerie/archive/2003/02/24/2880.aspx
+
+Stored procedures versioning with SQL Server and Visual SourceSafe 
+
+Here is a quick summary of the steps to add Stored Procedures to the .NET IDE:
+Install VS.NET on client machine
+Install VSS on client machine
+Open the VS.NET IDE and make sure to enable "version control" on the "Tools | Options | Database tools" tab. The option is "Enable version control"
+Install VSS on server machine
+Make sure SQL is running as a domain account and that that account has been added to the VSS database on the server
+Run the VS.NET install on the server machine, deselecting everything but "Server components/VS 6 Stored Procedure Version Control"
+Open the VS.NET IDE and create a connection to that SQL database
+Right click on the "stored procedureS" node and select "Add to Source Control". This creates the initial project structure in VSS
+You must now still add the individual SP's. You can click on the top one, hold down shift, and click on the last one. This will highlight all the SP's allowing you to right click and add to Source Control
+
+I do not remember where I found this information, but more information can be found on MSDN.
+-------------------------------------------------------------------
+
+
+http://support.microsoft.com/default.aspx?scid=kb;EN-US;818368
+
+How To Add SQL Server 2000 Stored Procedures to Visual SourceSafe by Using Visual Studio .NET
+-------------------------------------------------------------------
+
+
+-------------------------------------------------------------------
+
+
+-------------------------------------------------------------------
+
+
+-------------------------------------------------------------------
+
+

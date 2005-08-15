@@ -1,0 +1,6 @@
+
+1. Generate scripts for all objects.
+	- for SPs
+	- for Tables
+	- for Views
+	- for user functions
