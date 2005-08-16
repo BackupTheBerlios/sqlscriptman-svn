@@ -1,0 +1,9 @@
+* Presentation *
+
+Roadmap
+=======
+
+- Write a web page with basic characteristic and (planned) feature list.
+- open mailing lists
+- take screenshots of the application as soon as are worth showing
+- create some wiki content (howto, ...)
