@@ -19,6 +19,8 @@ namespace sqlscriptman
 
 		// my temp vars
 		private Connection connection;
+		private System.Windows.Forms.Button btnCheckPath;
+		private System.Windows.Forms.TextBox txtPath;
 
 		/// <summary>
 		/// Required designer variable.
@@ -63,6 +65,8 @@ namespace sqlscriptman
 			this.txtLogin = new System.Windows.Forms.TextBox();
 			this.txtPassword = new System.Windows.Forms.TextBox();
 			this.btnConnect = new System.Windows.Forms.Button();
+			this.txtPath = new System.Windows.Forms.TextBox();
+			this.btnCheckPath = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// txtServer
@@ -98,10 +102,29 @@ namespace sqlscriptman
 			this.btnConnect.Text = "Connect";
 			this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
 			// 
+			// txtPath
+			// 
+			this.txtPath.Location = new System.Drawing.Point(96, 200);
+			this.txtPath.Name = "txtPath";
+			this.txtPath.Size = new System.Drawing.Size(264, 20);
+			this.txtPath.TabIndex = 4;
+			this.txtPath.Text = "txtPath";
+			// 
+			// btnCheckPath
+			// 
+			this.btnCheckPath.Location = new System.Drawing.Point(272, 232);
+			this.btnCheckPath.Name = "btnCheckPath";
+			this.btnCheckPath.Size = new System.Drawing.Size(88, 24);
+			this.btnCheckPath.TabIndex = 5;
+			this.btnCheckPath.Text = "Check Path";
+			this.btnCheckPath.Click += new System.EventHandler(this.btnCheckPath_Click);
+			// 
 			// frmMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(616, 405);
+			this.Controls.Add(this.btnCheckPath);
+			this.Controls.Add(this.txtPath);
 			this.Controls.Add(this.btnConnect);
 			this.Controls.Add(this.txtPassword);
 			this.Controls.Add(this.txtLogin);
@@ -137,6 +160,20 @@ namespace sqlscriptman
 			catch(Exception exp)
 			{
                 MessageBox.Show("Not connected: " + exp.Message);
+			}
+		}
+
+		private void btnCheckPath_Click(object sender, System.EventArgs e)
+		{
+			try
+			{
+				FSObjectView fsObjectView = new FSObjectView(txtPath.Text);
+
+				fsObjectView.LoadObjects();
+			}
+			catch(Exception exc)
+			{
+                MessageBox.Show("Error '" + exc.Message + "' occured at " + exc.Source);
 			}
 		}
 	}

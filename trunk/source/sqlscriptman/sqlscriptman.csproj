@@ -121,6 +121,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "DBObject.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "frmMain.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -129,6 +134,31 @@
                     RelPath = "frmMain.resx"
                     DependentUpon = "frmMain.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "FSObjectView.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Manager.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ObjectDictionary.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ObjectView.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "StringCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
             </Include>
         </Files>
