@@ -16,11 +16,14 @@ namespace sqlscriptman
 		private System.Windows.Forms.TextBox txtLogin;
 		private System.Windows.Forms.TextBox txtPassword;
 		private System.Windows.Forms.Button btnConnect;
+		private System.Windows.Forms.Button btnCheckPath;
+		private System.Windows.Forms.TextBox txtPath;
+		private System.Windows.Forms.ListBox lstTest;
 
 		// my temp vars
 		private Connection connection;
-		private System.Windows.Forms.Button btnCheckPath;
-		private System.Windows.Forms.TextBox txtPath;
+		private System.Windows.Forms.ComboBox cboObjectType;
+		private System.Windows.Forms.Button btnList;
 
 		/// <summary>
 		/// Required designer variable.
@@ -67,6 +70,9 @@ namespace sqlscriptman
 			this.btnConnect = new System.Windows.Forms.Button();
 			this.txtPath = new System.Windows.Forms.TextBox();
 			this.btnCheckPath = new System.Windows.Forms.Button();
+			this.lstTest = new System.Windows.Forms.ListBox();
+			this.cboObjectType = new System.Windows.Forms.ComboBox();
+			this.btnList = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// txtServer
@@ -112,17 +118,44 @@ namespace sqlscriptman
 			// 
 			// btnCheckPath
 			// 
-			this.btnCheckPath.Location = new System.Drawing.Point(272, 232);
+			this.btnCheckPath.Location = new System.Drawing.Point(248, 232);
 			this.btnCheckPath.Name = "btnCheckPath";
-			this.btnCheckPath.Size = new System.Drawing.Size(88, 24);
+			this.btnCheckPath.Size = new System.Drawing.Size(112, 24);
 			this.btnCheckPath.TabIndex = 5;
-			this.btnCheckPath.Text = "Check Path";
+			this.btnCheckPath.Text = "Load FSView";
 			this.btnCheckPath.Click += new System.EventHandler(this.btnCheckPath_Click);
+			// 
+			// lstTest
+			// 
+			this.lstTest.Location = new System.Drawing.Point(376, 200);
+			this.lstTest.Name = "lstTest";
+			this.lstTest.Size = new System.Drawing.Size(224, 186);
+			this.lstTest.TabIndex = 6;
+			// 
+			// cboObjectType
+			// 
+			this.cboObjectType.Location = new System.Drawing.Point(248, 272);
+			this.cboObjectType.Name = "cboObjectType";
+			this.cboObjectType.Size = new System.Drawing.Size(112, 21);
+			this.cboObjectType.TabIndex = 7;
+			this.cboObjectType.Text = "comboBox1";
+			// 
+			// btnList
+			// 
+			this.btnList.Location = new System.Drawing.Point(248, 304);
+			this.btnList.Name = "btnList";
+			this.btnList.Size = new System.Drawing.Size(112, 24);
+			this.btnList.TabIndex = 8;
+			this.btnList.Text = "List Objects";
+			this.btnList.Click += new System.EventHandler(this.btnList_Click);
 			// 
 			// frmMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(616, 405);
+			this.Controls.Add(this.btnList);
+			this.Controls.Add(this.cboObjectType);
+			this.Controls.Add(this.lstTest);
 			this.Controls.Add(this.btnCheckPath);
 			this.Controls.Add(this.txtPath);
 			this.Controls.Add(this.btnConnect);
@@ -130,6 +163,7 @@ namespace sqlscriptman
 			this.Controls.Add(this.txtLogin);
 			this.Controls.Add(this.txtServer);
 			this.Name = "frmMain";
+			this.Load += new System.EventHandler(this.frmMain_Load);
 			this.ResumeLayout(false);
 
 		}
@@ -167,13 +201,33 @@ namespace sqlscriptman
 		{
 			try
 			{
-				FSObjectView fsObjectView = new FSObjectView(txtPath.Text);
-
-				fsObjectView.LoadObjects();
+				Manager.tempDB.OpenFSView(Slot.One, txtPath.Text);
 			}
 			catch(Exception exc)
 			{
                 MessageBox.Show("Error '" + exc.Message + "' occured at " + exc.Source);
+			}
+		}
+
+		private void frmMain_Load(object sender, System.EventArgs e)
+		{
+			foreach( String objectTypeName in Manager.dbObjectTypes )
+			{
+				cboObjectType.Items.Add(objectTypeName);
+			}
+		}
+
+		private void btnList_Click(object sender, System.EventArgs e)
+		{
+			try
+			{
+				lstTest.Items.Clear();
+				Manager.tempDB.ShowObjects(Slot.One,
+					Manager.dbObjectTypes.IndexOf(cboObjectType.Text), lstTest);
+			}
+			catch(Exception exc)
+			{
+				MessageBox.Show("Error '" + exc.Message + "' occured at " + exc.Source);
 			}
 		}
 	}

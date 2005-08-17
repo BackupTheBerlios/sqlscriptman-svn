@@ -18,8 +18,21 @@ namespace sqlscriptman
 			dbObjectTypes.Add("SPs");		// stored procedures
 			dbObjectTypes.Add("Tables");
 			dbObjectTypes.Add("Views");
+
+			tempDB = new Database();
 		}
 
 		public static StringCollection dbObjectTypes;
+
+		public const String subdirPattern = "*??s";
+		public const String scriptPattern = "*.sql";
+
+		public static Database tempDB;
+	}
+
+	public enum Slot : int
+	{
+		One = 0,
+		Two = 1
 	}
 }

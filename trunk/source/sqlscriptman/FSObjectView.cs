@@ -1,36 +1,39 @@
 using System;
 using System.IO;
 
+
 namespace sqlscriptman
-{
+{	
 	/// <summary>
-	/// Summary description for FSObjectView.
+	/// <c>FSObjectView</c> manages DB objects originaly stored at a filesystem.
+	/// It provides methods for reading the structure from the FS, saving it back,
+	/// viewing, adding and removing of the objects.
 	/// </summary>
 	public class FSObjectView : ObjectView
 	{
 		// constructor
-		public FSObjectView(string fsPath)
+		public FSObjectView(string fsPath): base()
 		{
 			mFSPath = fsPath;
 		}
 
 		/// <summary>
 		/// Finds and stores all SQL scripts in mFSPath directory.
-		/// Expected directory layout is:
+		/// Expected directory layout is specified in Manager.dbObjectTypes.
+		/// It can, for example, be the following:
 		///		Functions
 		///		SPs
 		///		Tables
 		///		Views
 		/// </summary>
-		public void LoadObjects()
+		public override void LoadObjects()
 		{
 			DirectoryInfo fsDatabaseDir = new DirectoryInfo(mFSPath);
 
 			if( fsDatabaseDir.Exists )
 			{
-				foreach( DirectoryInfo subDir in fsDatabaseDir.GetDirectories("*??s") )
-					// candidate for subdirectory name must have at least 3 characters 
-					// and end with small "s", case is ignored hereafter
+				foreach( DirectoryInfo subDir 
+							in fsDatabaseDir.GetDirectories(Manager.subdirPattern) )
 				{
 					// have we found stored procedures, tables, ... ?
 					foreach( String objectType in Manager.dbObjectTypes )
@@ -41,6 +44,7 @@ namespace sqlscriptman
 								subDir,
 								Manager.dbObjectTypes.IndexOf(objectType)
 							);
+							break;
 						}
 					} // for each object type							  
 				} // for each found dir
@@ -52,11 +56,19 @@ namespace sqlscriptman
 
 		private void LoadSpecificObjects(DirectoryInfo subdirectory, int typeIndex)
 		{
-			System.Windows.Forms.MessageBox.Show(
-				subdirectory.Name + ", index: " + typeIndex);
-		}
+			//System.Windows.Forms.MessageBox.Show(
+			//	subdirectory.Name + ", index: " + typeIndex);
+
+			foreach( FileInfo scriptFile 
+						 in subdirectory.GetFiles(Manager.scriptPattern) )
+			{
+				DBObject dbObject = new DBObject();
+				dbObject.Name = scriptFile.Name;
+
+				dbObjectsArray[typeIndex].Add(scriptFile.Name, dbObject);
+			}
+		} // LoadSpecificObjects
 
 		private string mFSPath;
-		//private ObjectDictionary dbObjects;
 	}
 }
