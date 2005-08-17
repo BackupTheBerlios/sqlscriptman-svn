@@ -40,6 +40,9 @@ How To Add SQL Server 2000 Stored Procedures to Visual SourceSafe by Using Visua
 -------------------------------------------------------------------
 
 
+http://support.microsoft.com/default.aspx?scid=kb;en-us;Q315505
+
+HOW TO: Use the SQL Distributed Management Objects Model to Programmatically Transfer SQL Server Stored Procedures
 -------------------------------------------------------------------
 
 
