@@ -7,3 +7,8 @@ Roadmap
 - open mailing lists
 - take screenshots of the application as soon as are worth showing
 - create some wiki content (howto, ...)
+
+Home page
+=========
+
+was temporary moved from sqlscriptman.berlios.de to http://openfacts.berlios.de/index-en.phtml?title=SQL_ScriptMan until a real homepage is created.
