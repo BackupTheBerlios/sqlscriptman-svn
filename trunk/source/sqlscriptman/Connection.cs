@@ -3,7 +3,9 @@ using System;
 namespace sqlscriptman
 {
 	/// <summary>
-	/// Summary description for Connection.
+	/// <c>Connection</c> manages a connection to a server.
+	/// Servername is specified in constructor and doesn't change.
+	/// Login and Password are public properties.
 	/// </summary>
 	public class Connection
 	{
@@ -25,9 +27,23 @@ namespace sqlscriptman
 			InitMembers();
 		}
 
+		/// <summary>
+		/// Connects to an SQL server using its properties serverName, login and password
+		/// </summary>
 		public void Connect()
 		{
 			mSQLServer.Connect(mServerName, mLogin, mPassword);
+		}
+
+		/// <summary>
+		/// Returns database object from the connected server.
+		/// </summary>
+		/// <param name="dbName">database/catalog name</param>
+		/// <param name="dbOwner">username of the databes owner</param>
+		/// <returns></returns>
+		public object GetDatabase(string dbName, string dbOwner)
+		{
+			return (object)mSQLServer.Databases.Item(dbName, dbOwner);
 		}
 
 		public string Login
@@ -57,7 +73,7 @@ namespace sqlscriptman
 		// constructor tool
 		private void InitMembers()
 		{
-			mSQLServer = new SQLDMO.SQLServer2Class();
+			mSQLServer = new SQLDMO.SQLServer2();
 		}
 
 		private string mServerName;

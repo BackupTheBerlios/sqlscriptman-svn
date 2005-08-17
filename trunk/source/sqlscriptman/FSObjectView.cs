@@ -62,9 +62,17 @@ namespace sqlscriptman
 			foreach( FileInfo scriptFile 
 						 in subdirectory.GetFiles(Manager.scriptPattern) )
 			{
+				// create new object and set its name
 				DBObject dbObject = new DBObject();
 				dbObject.Name = scriptFile.Name;
 
+				// load the script into the new object
+				using(StreamReader scriptReader = new StreamReader(scriptFile.FullName))
+				{
+					dbObject.Script = scriptReader.ReadToEnd();
+				}
+
+				// store the new object into dictionary of appropriate type
 				dbObjectsArray[typeIndex].Add(scriptFile.Name, dbObject);
 			}
 		} // LoadSpecificObjects

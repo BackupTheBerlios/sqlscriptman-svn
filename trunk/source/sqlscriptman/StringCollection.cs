@@ -7,6 +7,7 @@ namespace sqlscriptman
 	/// <c>StringCollection</c> specializes <c>CollectionBase</c> to String.
 	/// Some other overrides may be appropriate to copy from help.
 	/// </summary>
+	// note: string is just an alias for System.String so it doesn't matter.
 	public class StringCollection : CollectionBase
 	{
 		public StringCollection()

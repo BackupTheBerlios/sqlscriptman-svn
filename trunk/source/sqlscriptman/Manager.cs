@@ -28,6 +28,7 @@ namespace sqlscriptman
 		public const String scriptPattern = "*.sql";
 
 		public static Database tempDB;
+		public static Connection connection;
 	}
 
 	public enum Slot : int
