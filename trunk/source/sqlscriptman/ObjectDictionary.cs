@@ -4,7 +4,7 @@ using System.Collections;
 namespace sqlscriptman
 {
 	/// <summary>
-	/// Type save dictionary for DBObjects.
+	/// Type safe dictionary for DBObjects.
 	/// </summary>
 	public class ObjectDictionary : DictionaryBase
 	{
